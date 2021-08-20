@@ -14,14 +14,22 @@ export default class ContactDetails extends React.Component {
     }
     
     handleToggle(){
+        if(!this.state.edit){
+            this.setState({
+                name: this.props.contact.name,
+                phone: this.props.contact.phone
+            });
+        }
         this.setState({
             isEdit:!this.state.isEdit
         });
         console.log(this.state.isEdit);
     }
     
-    handleChange(){
-        
+    handleChange(e){
+        this.setState({
+            keyword: e.target.value
+        });
     }
     
     render() {

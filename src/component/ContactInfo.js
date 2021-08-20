@@ -1,9 +1,18 @@
 import React from 'react';
+import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
 
 export default class ContactInfo extends React.Component {
     render() {
         return (
-            <div onClick={this.props.onClick}>{this.props.contact.name}</div>
+            <div>
+                <Chip
+                    icon={<FaceIcon />}
+                    label={this.props.contact.name}
+                    onClick={this.props.onClick}
+                    variant="outlined"
+                />
+            </div>
         );
     }
 }

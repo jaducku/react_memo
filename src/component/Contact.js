@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import ContactInfo from './ContactInfo';
 import ContactDetails from './ContactDetails';
 import ContactCreate from './ContactCreate';
@@ -102,7 +103,7 @@ export default class Contact extends React.Component {
         return (
             <div>
                 <h1>Contacts</h1>
-                <input
+                <TextField id="standard-basic"
                     name="keyword"
                     placeholder="Search"
                     value={this.state.keyword}
