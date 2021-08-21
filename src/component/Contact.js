@@ -1,5 +1,4 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import ContactInfo from './ContactInfo';
 import ContactDetails from './ContactDetails';
 import ContactCreate from './ContactCreate';
@@ -58,10 +57,10 @@ export default class Contact extends React.Component {
     }
 
     handleRemove() {
-        if(this.state.selectedKey<0){
+        if(this.state.selectedKey < 0) {
             return;
         }
-        
+
         this.setState({
             contactData: update(this.state.contactData,
                 { $splice: [[this.state.selectedKey, 1]] }
@@ -103,7 +102,7 @@ export default class Contact extends React.Component {
         return (
             <div>
                 <h1>Contacts</h1>
-                <TextField id="standard-basic"
+                <input
                     name="keyword"
                     placeholder="Search"
                     value={this.state.keyword}
@@ -114,6 +113,7 @@ export default class Contact extends React.Component {
                     isSelected={this.state.selectedKey != -1}
                     contact={this.state.contactData[this.state.selectedKey]}
                     onRemove={this.handleRemove}
+                    onEdit={this.handleEdit}
                 />
                 <ContactCreate
                     onCreate={this.handleCreate}

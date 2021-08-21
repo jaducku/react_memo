@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 export default class ContactDetails extends React.Component {
     constructor(props){
         super(props);
+        
         this.state = {
             isEdit: false,
             name:'',
@@ -11,25 +14,39 @@ export default class ContactDetails extends React.Component {
         
         this.handleToggle = this.handleToggle.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
     
     handleToggle(){
-        if(!this.state.edit){
+        if(!this.state.isEdit){
             this.setState({
                 name: this.props.contact.name,
                 phone: this.props.contact.phone
             });
+        }else{
+            this.handleEdit();
         }
+        
         this.setState({
             isEdit:!this.state.isEdit
         });
-        console.log(this.state.isEdit);
     }
     
     handleChange(e){
-        this.setState({
-            keyword: e.target.value
-        });
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState)
+    }
+    
+    handleEdit(){
+        this.props.onEdit(this.state.name,this.state.phone);
+    }
+    
+    handleKeyPress(e){
+        if(e.charCode===13){
+            this.handleToggle();
+        }
     }
     
     render() {
@@ -59,6 +76,7 @@ export default class ContactDetails extends React.Component {
                         placeholder="phone"
                         value={this.state.phone}
                         onChange={this.handleChange}
+                        onKeyPress={this.handleKeyPress}
                     />
                 </p>
             </div>  
@@ -71,10 +89,10 @@ export default class ContactDetails extends React.Component {
                 <h2>Details</h2>
                 {this.props.isSelected ? view : blank}
                 <p>
-                    <button onClick={this.handleToggle}>
-                        {this.state.isEdit?'OK':'Edit'}
-                    </button>
-                    <button onClick={this.props.onRemove}>Remove</button>
+                    <Button variant="contained" color="primary" onClick={this.handleToggle}>
+                        {this.state.isEdit ? 'OK' : 'Edit'}
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={this.props.onRemove}>Remove</Button>
                 </p>
             </div>
         );
@@ -86,5 +104,12 @@ ContactDetails.defaultProps = {
         name: '',
         phone: ''
     },
-    onRemove:()=>{console.error('onRemove not defined');}
+    onRemove:()=>{console.error('onRemove not defined');},
+    onEdit:()=>{console.error('onEdit not defined');}
 };
+
+ContactDetails.proptypes = {
+    contact: PropTypes.object,
+    onRemove: PropTypes.func,
+    onEdit: PropTypes.func
+}
