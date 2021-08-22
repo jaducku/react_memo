@@ -50,14 +50,13 @@ export default class ContactDetails extends React.Component {
     }
     
     render() {
-
         const details = (
             <div>
                 <p>{this.props.contact.name}</p>
                 <p>{this.props.contact.phone}</p>
             </div>
         );
-        
+        ``
         const edit = (
             <div>
                 <p>
